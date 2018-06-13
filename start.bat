@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --kiosk --disable-pinch --disable-translate E:\www\testFile\videoPlay\index.html

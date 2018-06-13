@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+    <!--<link href="css/video-js.css" rel="stylesheet">-->
+    <link href="css/index.css" rel="stylesheet">
+    <script src="videolist.js"></script>
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/jquery.touchSwipe.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <!--<script src="js/video.js"></script>-->
+</head>
+<body>
+<div id="app" >
+    <div id="videoPack" class="pack">
+        <img src="image/quit.png" style="position: absolute;width: 1.7%;top: 5%;right: 5%;cursor: pointer" @click="winClick">
+        <div class="videoContainer">
+            <!--<video id="my-video" class="video-js" controls preload="auto" poster="" data-setup="{}">-->
+            <!--<source src="videos/001.mp4" type='video/mp4'>-->
+            <!--</video>-->
+            <video  id="my-video" controls>
+                <source :src="videoUrl" type="video/mp4">
+                <!--<source src="videos/001.mp4" type="video/mp4">-->
+                您的浏览器不支持,请考虑升级或使用其他浏览器。
+            </video>
+        </div>
+    </div>
+    <div class="pack">
+        <ul class="videolist">
+            <li v-for="(item,index) in videoList"  v-show="videoMin<index+1 && index<videoMax" v-bind:style="{backgroundImage : 'url('+ ( item.poster ) +')'}" @click="videoChange(item,index)">
+                <div class="showList" :class="{showListClick : index==isShowPlay}">
+                    <img v-show="index!=isShowPlay" src="image/play_icon.png">
+                    <P v-show="index==isShowPlay">播放中•••</P>
+                    <span>{{ item.name }}</span>
+                </div >
+            </li>
+        </ul>
+        <ul class="videolistnav">
+            <li v-for="(item,index) in navList"  @click="videoListClick(index)" :class="{videolistCheck : index==videolistnavIndex}" ></li>
+        </ul>
+        <span class="leftNext" @click="nextBtn(0)"></span>
+        <span class="rightNext" @click="nextBtn(1)"></span>
+    </div>
+</div>
+</body>
+<script>
+    var mv=new Vue({
+        el: '#app',
+        data: {
+            videoList:videoList,
+            navList: Math.ceil(videoList.length/6),
+            videoMin:0,
+            videoMax:6,
+            isShowPlay:-1,
+            videoUrl:videoList[0].filePath,
+            //当前导航页
+            videolistnavIndex:0,
+        },
+        created(){
+
+        },
+        mounted(){
+            var myVideo=document.getElementById("my-video");
+//            myVideo.pause();
+//            myVideo.load();
+            myVideo.play();
+            this.isShowPlay=0;
+            myVideo.onended=this.endPlay;
+        },
+        methods:{
+            //播放视频
+            videoChange(val,index){
+                var myVideo=document.getElementById("my-video");
+                myVideo.pause();
+                this.videoUrl=val.filePath;
+                myVideo.load();
+                myVideo.play();
+                this.isShowPlay=index;
+                myVideo.onended=this.endPlay;
+            },
+            //翻页按钮
+            videoListClick(val){
+                this.videolistnavIndex=val;
+                this.videoMin=val*6;
+                this.videoMax=(val+1)*6;
+            },
+            //上下翻页
+            nextBtn(val){
+                if(val==0){
+                    if(this.videolistnavIndex>0){
+                        this.videolistnavIndex--
+                    }
+                }else {
+                    if(this.videolistnavIndex<this.navList-1){
+                        this.videolistnavIndex++
+                    }
+                }
+                this.videoListClick(this.videolistnavIndex);
+            },
+            //自动播放下一个
+            endPlay() {
+                if(this.isShowPlay<this.videoList.length-1){
+                    this.isShowPlay++;
+                }else {
+                    this.isShowPlay=0;
+                }
+                if(this.videoList[this.isShowPlay].filePath){
+                    this.videoChange(this.videoList[this.isShowPlay],this.isShowPlay);
+                }else {
+                    this.endPlay();
+                }
+            },
+            //关闭浏览器
+            winClick(){
+                window.close()
+            }
+        }
+    })
+
+    //滑动控制视频进度及音量
+    jQuery("#videoPack").swipe({
+        swipe:function (event, direction, distance, duration, fingerCount, fingerData) {
+            var myVideo=document.getElementById("my-video");
+            switch (direction){
+                case 'up':
+                    var val=myVideo.volume+(distance/1000);
+                    if(val>1){
+                        val=1;
+                    }
+                    myVideo.volume = val;
+                    break;
+                case 'down':
+                    var val=myVideo.volume-(distance/1000);
+                    if(val<0){
+                        val=0;
+                    }
+                    myVideo.volume = val;
+                    break;
+                case 'left':
+                    var val=myVideo.currentTime-(distance/10);
+                    if(val<0){
+                        val=0;
+                    }
+                    myVideo.currentTime = val;
+                    break;
+                case 'right':
+                    var val=myVideo.currentTime+(distance/10);
+                    if(val>myVideo.duration-1){
+                        val=myVideo.duration-1;
+                    }
+                    myVideo.currentTime = val;
+                    break;
+            }
+        },
+    })
+</script>
+</html>

@@ -1,0 +1,155 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td { margin:0; padding:0; }
+body { background:#fff; color:#555; font-size:14px; font-family: Verdana, Arial, Helvetica, sans-serif; }
+td,th,caption { font-size:14px; }
+h1, h2, h3, h4, h5, h6 { font-weight:normal; font-size:100%; }
+address, caption, cite, code, dfn, em, strong, th, var { font-style:normal; font-weight:normal;}
+a { color:#555; text-decoration:none; }
+a:hover { text-decoration:underline; }
+img { border:none; }
+ol,ul,li { list-style:none; }
+input, textarea, select, button { font:14px Verdana,Helvetica,Arial,sans-serif; }
+table { border-collapse:collapse; }
+html {overflow-y: scroll;}
+html,body{
+    user-select: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /*background: -webkit-linear-gradient(#707070  -40%, #232323 40%);*/
+    /*background: -o-linear-gradient(#707070  -40%, #232323 40%);*/
+    /*background: -moz-linear-gradient(#707070  -40%, #232323 40%);*/
+    /*background: linear-gradient(#707070  -40%, #232323 40%);    */
+}
+.pack{
+    width: 100%;
+    box-sizing: border-box;
+}
+.pack:nth-child(1){
+    height: 70%;
+    padding-top: 4%;
+    background: -webkit-linear-gradient(#d8e5eb  11%, #b6cfd6 58%);
+    background: -o-linear-gradient(#d8e5eb  11%, #b6cfd6 58%);
+    background: -moz-linear-gradient(#d8e5eb  11%, #b6cfd6 58%);
+    background: linear-gradient(#d8e5eb  11%, #b6cfd6 58%);
+}
+.pack:nth-child(2){
+    height: 30%;
+    position:relative;
+    background: #99b6be;
+}
+.videoContainer{
+    width: 55%;
+    height: 86%;
+    margin: 0 auto;
+    position: relative;
+}
+#my-video{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    /*box-shadow: 6px 6px 10px #888888;*/
+}
+#app{
+    width: 100%;
+    height: 100%;
+}
+.videolist{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding-top: 3%;
+}
+.videolist li{
+    width: 14%;
+    height: 54%;
+    background: #000;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: inline-block;
+    margin: 5px;
+    cursor: pointer;
+    box-shadow: 6px 6px 10px #888888;
+}
+.videolist .showList{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+}
+.videolist .showList span{
+    position: absolute;
+    left: 0;right: 0;
+    bottom: 0;
+    line-height: 35px;
+    color: #000000;
+    background: #ffffff;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+.videolist .showList img{
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+.videolist .showList p{
+    color: #fff;
+    font-size: 17px;
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+.videolist .showListClick{
+    border: 4px solid #0190ff;
+    border-bottom: none;
+    background: rgba(0, 0, 0, 0.47);
+}
+.videolist .showListClick span{
+    background: #0190ff;
+    color: #fff;
+}
+.videolistnav{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10%;
+    text-align: center;
+}
+.videolistnav li{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #000000;
+    border: 1px #565656 solid;
+    margin: 10px;
+    cursor:pointer;
+}
+.videolistnav .videolistCheck{
+    background: #4285f4;
+    border: 1px solid #4285f4;
+}
+.leftNext,.rightNext{
+    position: absolute;
+    top: 38%;
+    width: 0;
+    height: 0;
+    cursor:pointer;
+}
+.leftNext{
+    left: 2%;
+    border-left: 0px solid transparent;
+    border-right: 25px solid white;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+}
+.rightNext{
+    right: 2%;
+    border-left: 25px solid white;
+    border-right: 0px solid transparent;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+}
